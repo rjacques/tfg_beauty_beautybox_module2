@@ -1,6 +1,20 @@
 ---
 import "../styles/global.css";
 
+
+import courseHero from "../images/course-hero.jpg";
+import primerProductImage1 from "../images/OBC-PRimer-1.png";
+import primerProductImage2 from "../images/OBC-PRimer-2.png";
+
+function stripNumbering(text) {
+  if (!text) return text;
+  const parts = text.split(") ");
+  if (parts.length < 2) return text;
+  const first = parts[0];
+  const isNumbered = first.split(".").every((part) => part && [...part].every((char) => char >= "0" && char <= "9"));
+  return isNumbered ? parts.slice(1).join(") ") : text;
+}
+
 function svgToDataUri(svg) {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
@@ -343,14 +357,11 @@ const lessons = [
   </head>
   <body class="bg-[#f4f1ed] text-[#27211c] selection:bg-[#d8c4b4] selection:text-[#241d18]">
     <main class="mx-auto max-w-[1240px] px-4 py-4 md:px-6 md:py-6">
-      <header class="rounded-[0.9rem] border border-[#e6dfd8] bg-white px-4 py-3 shadow-[0_10px_26px_rgba(56,37,24,0.05)] md:px-6">
+      <header class="sticky top-3 z-30 rounded-[0.9rem] border border-[#e6dfd8] bg-white/94 px-4 py-3 shadow-[0_10px_26px_rgba(56,37,24,0.05)] backdrop-blur md:px-6">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div class="flex items-center gap-4">
             <img src={TFG_LOGO} alt="TFG logo" class="h-10 w-10" />
-            <div>
-              <p class="text-xs uppercase tracking-[0.18em] text-[#8b7564]">TFG Learning</p>
-              <p class="text-sm text-[#51463d]">Beauty Co. face training</p>
-            </div>
+            <p class="text-sm font-medium text-[#51463d]">Let’s talk make up - Face</p>
           </div>
           <div class="flex flex-wrap gap-2 text-sm text-[#51463d]">
             <a href="#primer" class="rounded-full border border-[#e8e0d8] bg-[#faf8f6] px-4 py-2 hover:bg-[#f4efea]">Primer</a>
@@ -362,33 +373,16 @@ const lessons = [
         </div>
       </header>
 
-      <section class="mt-4 overflow-hidden rounded-[1rem] border border-[#e3ddd7] bg-[#f6f1ec] shadow-[0_14px_36px_rgba(56,39,27,0.05)]">
-        <div class="grid lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
-          <div class="px-6 py-8 md:px-10 md:py-10 lg:px-12 lg:py-12">
-            <div class="inline-flex items-center gap-3 rounded-full border border-[#e6ddd5] bg-white px-4 py-2">
-              <span class="text-xs font-semibold uppercase tracking-[0.22em] text-[#8f7968]">Module 2</span>
-            </div>
-            <img src={OBC_LOGO} alt="Beauty Co. logo" class="mt-8 h-16 w-auto md:h-20" />
-            <h1 class="mt-8 max-w-3xl text-4xl font-semibold tracking-[-0.03em] text-[#2f2924] md:text-6xl">Let’s talk make up - Face</h1>
-            <p class="mt-4 text-xl italic text-[#665b53]">Beauty Makeup</p>
-            <div class="mt-8 grid gap-3 sm:grid-cols-3">
-              <div class="rounded-[0.9rem] border border-[#e7dfd8] bg-white px-4 py-4">
-                <p class="text-xs uppercase tracking-[0.18em] text-[#8f7968]">Format</p>
-                <p class="mt-2 text-lg font-semibold text-[#2f2924]">One-page course</p>
-              </div>
-              <div class="rounded-[0.9rem] border border-[#e7dfd8] bg-white px-4 py-4">
-                <p class="text-xs uppercase tracking-[0.18em] text-[#8f7968]">Style</p>
-                <p class="mt-2 text-lg font-semibold text-[#2f2924]">Classy + interactive</p>
-              </div>
-              <div class="rounded-[0.9rem] border border-[#e7dfd8] bg-white px-4 py-4">
-                <p class="text-xs uppercase tracking-[0.18em] text-[#8f7968]">Assessments</p>
-                <p class="mt-2 text-lg font-semibold text-[#2f2924]">One question at a time</p>
-              </div>
-            </div>
+      <section class="relative mt-4 overflow-hidden rounded-[1rem] border border-[#e3ddd7] bg-[#f6f1ec] shadow-[0_14px_36px_rgba(56,39,27,0.05)]">
+        <img src={courseHero.src} alt="Beauty course hero image" class="absolute inset-0 h-full w-full object-cover object-right" />
+        <div class="absolute inset-0 bg-gradient-to-r from-[#f6f1ec] via-[#f6f1ec]/92 to-[#f6f1ec]/18"></div>
+        <div class="relative px-6 py-10 md:px-10 md:py-14 lg:px-12 lg:py-16">
+          <div class="inline-flex items-center gap-3 rounded-full border border-[#e6ddd5] bg-white/88 px-4 py-2 backdrop-blur">
+            <span class="text-xs font-semibold uppercase tracking-[0.22em] text-[#8f7968]">Module 2</span>
           </div>
-          <div class="min-h-[320px] bg-[#f1e7df]">
-            <img src={softBanner('#d6baa7', '#efe4db', '#9d7f68')} alt="Soft beauty image" class="h-full w-full object-cover" />
-          </div>
+          <img src={OBC_LOGO} alt="Beauty Co. logo" class="mt-8 h-16 w-auto md:h-20" />
+          <h1 class="mt-8 max-w-3xl text-4xl font-semibold tracking-[-0.03em] text-[#2f2924] md:text-6xl">Let’s talk make up - Face</h1>
+          <p class="mt-4 text-xl italic text-[#665b53]">Beauty Makeup</p>
         </div>
       </section>
 
@@ -400,21 +394,39 @@ const lessons = [
                 <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#8f7968]">{lesson.lesson}</p>
                 <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[#2f2924] md:text-4xl">{lesson.title}</h2>
               </div>
-              <div>
-                <img src={softBanner(lesson.theme.accent, lesson.theme.soft, lesson.theme.deep)} alt={`${lesson.title} banner`} class="h-[170px] w-full object-cover md:h-[200px]" />
-              </div>
+              {lesson.id === 'primer' ? (
+                <div class="relative overflow-hidden">
+                  <img src={primerProductImage2.src} alt={`${lesson.title} banner`} class="h-[170px] w-full object-cover object-right md:h-[200px]" />
+                  <div class="absolute inset-0 bg-gradient-to-r from-[#f7f2ed] via-[#f7f2ed]/90 to-transparent"></div>
+                </div>
+              ) : (
+                <div>
+                  <img src={softBanner(lesson.theme.accent, lesson.theme.soft, lesson.theme.deep)} alt={`${lesson.title} banner`} class="h-[170px] w-full object-cover md:h-[200px]" />
+                </div>
+              )}
             </div>
 
             <div class="px-6 py-7 md:px-8 md:py-8 lg:px-10">
               <div class="grid gap-4 xl:grid-cols-12">
-                <aside class="space-y-4 xl:col-span-4">
+                <aside class={`space-y-4 ${lesson.id === 'primer' ? 'xl:col-span-5' : 'xl:col-span-4'}`}>
                   <div class="rounded-[0.95rem] border border-[#e7dfd8] bg-white p-5">
                     <p class="text-xs uppercase tracking-[0.18em] text-[#8f7968]">Product</p>
-                    <h3 class="mt-3 text-2xl font-semibold tracking-[-0.02em] text-[#2f2924]">{lesson.productName}</h3>
+                    <h3 class="mt-3 text-2xl font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(lesson.productName)}</h3>
                     {lesson.looksLike && <p class="mt-4 text-[1rem] leading-8 text-[#504841]">{lesson.looksLike}</p>}
-                    <div class="mt-5 overflow-hidden rounded-[0.8rem] border border-[#ece5de] bg-[#f6f2ee]">
-                      <img src={softProduct(lesson.theme.accent, lesson.theme.soft, lesson.theme.deep, lesson.visual)} alt={`${lesson.title} visual`} class="w-full object-cover" />
-                    </div>
+                    {lesson.id === 'primer' ? (
+                      <div class="mt-5 grid grid-cols-2 gap-3">
+                        <div class="overflow-hidden rounded-[0.8rem] border border-[#ece5de] bg-[#f6f2ee]">
+                          <img src={primerProductImage1.src} alt="OBC Primer product image 1" class="h-full w-full object-cover" />
+                        </div>
+                        <div class="overflow-hidden rounded-[0.8rem] border border-[#ece5de] bg-[#f6f2ee]">
+                          <img src={primerProductImage2.src} alt="OBC Primer product image 2" class="h-full w-full object-cover" />
+                        </div>
+                      </div>
+                    ) : (
+                      <div class="mt-5 overflow-hidden rounded-[0.8rem] border border-[#ece5de] bg-[#f6f2ee]">
+                        <img src={softProduct(lesson.theme.accent, lesson.theme.soft, lesson.theme.deep, lesson.visual)} alt={`${lesson.title} visual`} class="w-full object-cover" />
+                      </div>
+                    )}
                   </div>
 
                   {lesson.topTip && (
@@ -425,10 +437,10 @@ const lessons = [
                   )}
                 </aside>
 
-                <div class="grid gap-4 md:grid-cols-2 xl:col-span-8">
+                <div class={`grid gap-4 md:grid-cols-2 ${lesson.id === 'primer' ? 'xl:col-span-7' : 'xl:col-span-8'}`}>
                   <article class="rounded-[0.95rem] border border-[#e7dfd8] bg-white p-5 md:col-span-2">
                     <p class="text-xs uppercase tracking-[0.18em] text-[#8f7968]">Overview</p>
-                    <h3 class="mt-3 text-[1.3rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{lesson.overviewHeading}</h3>
+                    <h3 class="mt-3 text-[1.3rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(lesson.overviewHeading)}</h3>
                     <div class="mt-4 space-y-4 text-[1rem] leading-8 text-[#4e4741]">
                       {lesson.overview.map((paragraph) => <p>{paragraph}</p>)}
                     </div>
@@ -436,7 +448,7 @@ const lessons = [
 
                   {lesson.sections.map((section) => (
                     <article class={`rounded-[0.95rem] border border-[#e7dfd8] bg-white p-5 ${(section.subsections || (section.bullets && section.bullets.length > 4) || section.paragraph && section.paragraph.length > 150) ? 'md:col-span-2' : ''}`}>
-                      {section.heading && <h3 class="text-[1.22rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{section.heading}</h3>}
+                      {section.heading && <h3 class="text-[1.22rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(section.heading)}</h3>}
                       {section.label && !section.heading && <p class="text-[1.12rem] font-semibold text-[#2f2924]">{section.label}</p>}
                       {section.label && section.heading && <p class="mt-3 text-[1rem] text-[#4e4741]">{section.label}</p>}
                       {section.paragraph && <p class="mt-4 text-[1rem] leading-8 text-[#4e4741]">{section.paragraph}</p>}
