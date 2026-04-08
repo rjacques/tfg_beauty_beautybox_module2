@@ -1,10 +1,9 @@
 ---
 import "../styles/global.css";
-
-
 import courseHero from "../images/course-hero.jpg";
 import primerProductImage1 from "../images/OBC-PRimer-1.png";
 import primerProductImage2 from "../images/OBC-PRimer-2.png";
+import lesson1BannerImage from "../images/lesson-1-banner-inage.jpg";
 
 function stripNumbering(text) {
   if (!text) return text;
@@ -122,7 +121,7 @@ const lessons = [
   {
     id: "primer",
     lesson: "Lesson 1",
-    title: "The Primer",
+    title: "The Primer 000000",
     visual: "primer",
     theme: { accent: "#d2b7a6", soft: "#f4efea", deep: "#8d7260" },
     productName: "1.1) OBC Primer",
@@ -374,14 +373,13 @@ const lessons = [
       </header>
 
       <section class="relative mt-4 overflow-hidden rounded-[1rem] border border-[#e3ddd7] bg-[#f6f1ec] shadow-[0_14px_36px_rgba(56,39,27,0.05)]">
-        <img src={courseHero.src} alt="Beauty course hero image" class="absolute inset-0 h-full w-full object-cover object-right" />
-        <div class="absolute inset-0 bg-gradient-to-r from-[#f6f1ec] via-[#f6f1ec]/92 to-[#f6f1ec]/18"></div>
-        <div class="relative px-6 py-10 md:px-10 md:py-14 lg:px-12 lg:py-16">
+        <img src={courseHero.src} alt="Beauty course hero image" class="absolute inset-y-0 right-0 h-full w-[52%] object-cover object-right" />
+<div class="absolute inset-y-0 right-[0%] w-[70%]" style="background: linear-gradient(90deg, #f6f1ec 40%, rgba(246, 241, 236, 0) 100%);"></div>        <div class="relative px-6 py-14 md:px-10 md:py-20 lg:px-12 lg:py-24">
           <div class="inline-flex items-center gap-3 rounded-full border border-[#e6ddd5] bg-white/88 px-4 py-2 backdrop-blur">
             <span class="text-xs font-semibold uppercase tracking-[0.22em] text-[#8f7968]">Module 2</span>
           </div>
           <img src={OBC_LOGO} alt="Beauty Co. logo" class="mt-8 h-16 w-auto md:h-20" />
-          <h1 class="mt-8 max-w-3xl text-4xl font-semibold tracking-[-0.03em] text-[#2f2924] md:text-6xl">Let’s talk make up - Face</h1>
+          <h1 class="mt-8 max-w-md text-4xl font-semibold tracking-[-0.03em] text-[#2f2924] md:text-6xl">Let’s talk make up - Face</h1>
           <p class="mt-4 text-xl italic text-[#665b53]">Beauty Makeup</p>
         </div>
       </section>
@@ -396,8 +394,8 @@ const lessons = [
               </div>
               {lesson.id === 'primer' ? (
                 <div class="relative overflow-hidden">
-                  <img src={primerProductImage2.src} alt={`${lesson.title} banner`} class="h-[170px] w-full object-cover object-right md:h-[200px]" />
-                  <div class="absolute inset-0 bg-gradient-to-r from-[#f7f2ed] via-[#f7f2ed]/90 to-transparent"></div>
+                  <img src={lesson1BannerImage.src} alt={`${lesson.title} banner`} class="h-[170px] w-full object-cover object-right md:h-[200px]" />
+                  <div class="absolute inset-0 bg-gradient-to-r from-[#f7f2ed] via-[#f7f2ed]/95 via-[50%] to-transparent to-[68%]"></div>
                 </div>
               ) : (
                 <div>
