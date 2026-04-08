@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
-import courseHero from "../images/course-hero.jpg";
+//import courseHero from "../images/course-hero.jpg";
+import courseHero from "../images/hero_anim.webp";
 import primerProductImage1 from "../images/OBC-PRimer-1.png";
 import primerProductImage2 from "../images/OBC-PRimer-2.png";
 import lesson1BannerImage from "../images/lesson-1-banner-inage.jpg";
@@ -121,12 +122,12 @@ const lessons = [
   {
     id: "primer",
     lesson: "Lesson 1",
-    title: "The Primer 000000",
+    title: "The Primer",
     visual: "primer",
     theme: { accent: "#d2b7a6", soft: "#f4efea", deep: "#8d7260" },
     productName: "1.1) OBC Primer",
     looksLike: "What it looks like:",
-    overviewHeading: "1.1.1) Test Product Overview",
+    overviewHeading: "1.1.1) Product Overview",
     overview: [
       "The ultimate blend of skin care and a perfecting primer.",
       "A fresh and light formula containing Niacinamide and Hyaluronic acid, that help to brighten, firm and plump the skin, while functioning as a primer to provide adhesion for makeup – all with a silky finish.",
@@ -374,7 +375,8 @@ const lessons = [
 
       <section class="relative mt-4 overflow-hidden rounded-[1rem] border border-[#e3ddd7] bg-[#f6f1ec] shadow-[0_14px_36px_rgba(56,39,27,0.05)]">
         <img src={courseHero.src} alt="Beauty course hero image" class="absolute inset-y-0 right-0 h-full w-[52%] object-cover object-right" />
-<div class="absolute inset-y-0 right-[0%] w-[70%]" style="background: linear-gradient(90deg, #f6f1ec 40%, rgba(246, 241, 236, 0) 100%);"></div>        <div class="relative px-6 py-14 md:px-10 md:py-20 lg:px-12 lg:py-24">
+        <div class="absolute inset-y-0 right-[36%] w-[22%]" style="background: linear-gradient(90deg, #f6f1ec 0%, rgba(246, 241, 236, 0.92) 38%, rgba(246, 241, 236, 0.55) 68%, rgba(246, 241, 236, 0) 100%);"></div>
+        <div class="relative px-6 py-14 md:px-10 md:py-20 lg:px-12 lg:py-24">
           <div class="inline-flex items-center gap-3 rounded-full border border-[#e6ddd5] bg-white/88 px-4 py-2 backdrop-blur">
             <span class="text-xs font-semibold uppercase tracking-[0.22em] text-[#8f7968]">Module 2</span>
           </div>
@@ -392,7 +394,8 @@ const lessons = [
                 <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#8f7968]">{lesson.lesson}</p>
                 <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[#2f2924] md:text-4xl">{lesson.title}</h2>
               </div>
-              {lesson.id === 'primer' ? (
+
+              {lesson.id === "primer" ? (
                 <div class="relative overflow-hidden">
                   <img src={lesson1BannerImage.src} alt={`${lesson.title} banner`} class="h-[170px] w-full object-cover object-right md:h-[200px]" />
                   <div class="absolute inset-0 bg-gradient-to-r from-[#f7f2ed] via-[#f7f2ed]/95 via-[50%] to-transparent to-[68%]"></div>
@@ -406,12 +409,14 @@ const lessons = [
 
             <div class="px-6 py-7 md:px-8 md:py-8 lg:px-10">
               <div class="grid gap-4 xl:grid-cols-12">
-                <aside class={`space-y-4 ${lesson.id === 'primer' ? 'xl:col-span-5' : 'xl:col-span-4'}`}>
+                <aside class={`space-y-4 ${lesson.id === "primer" ? "xl:col-span-5" : "xl:col-span-4"}`}>
                   <div class="rounded-[0.95rem] border border-[#e7dfd8] bg-white p-5">
                     <p class="text-xs uppercase tracking-[0.18em] text-[#8f7968]">Product</p>
                     <h3 class="mt-3 text-2xl font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(lesson.productName)}</h3>
+
                     {lesson.looksLike && <p class="mt-4 text-[1rem] leading-8 text-[#504841]">{lesson.looksLike}</p>}
-                    {lesson.id === 'primer' ? (
+
+                    {lesson.id === "primer" ? (
                       <div class="mt-5 grid grid-cols-2 gap-3">
                         <div class="overflow-hidden rounded-[0.8rem] border border-[#ece5de] bg-[#f6f2ee]">
                           <img src={primerProductImage1.src} alt="OBC Primer product image 1" class="h-full w-full object-cover" />
@@ -435,7 +440,7 @@ const lessons = [
                   )}
                 </aside>
 
-                <div class={`grid gap-4 md:grid-cols-2 ${lesson.id === 'primer' ? 'xl:col-span-7' : 'xl:col-span-8'}`}>
+                <div class={`grid gap-4 md:grid-cols-2 ${lesson.id === "primer" ? "xl:col-span-7" : "xl:col-span-8"}`}>
                   <article class="rounded-[0.95rem] border border-[#e7dfd8] bg-white p-5 md:col-span-2">
                     <p class="text-xs uppercase tracking-[0.18em] text-[#8f7968]">Overview</p>
                     <h3 class="mt-3 text-[1.3rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(lesson.overviewHeading)}</h3>
@@ -445,26 +450,30 @@ const lessons = [
                   </article>
 
                   {lesson.sections.map((section) => (
-                    <article class={`rounded-[0.95rem] border border-[#e7dfd8] bg-white p-5 ${(section.subsections || (section.bullets && section.bullets.length > 4) || section.paragraph && section.paragraph.length > 150) ? 'md:col-span-2' : ''}`}>
+                    <article class={`rounded-[0.95rem] border border-[#e7dfd8] bg-white p-5 ${(section.subsections || (section.bullets && section.bullets.length > 4) || (section.paragraph && section.paragraph.length > 150)) ? "md:col-span-2" : ""}`}>
                       {section.heading && <h3 class="text-[1.22rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(section.heading)}</h3>}
                       {section.label && !section.heading && <p class="text-[1.12rem] font-semibold text-[#2f2924]">{section.label}</p>}
                       {section.label && section.heading && <p class="mt-3 text-[1rem] text-[#4e4741]">{section.label}</p>}
                       {section.paragraph && <p class="mt-4 text-[1rem] leading-8 text-[#4e4741]">{section.paragraph}</p>}
+
                       {section.bullets && (
-                        <ul class="mt-4 space-y-2 pl-5 text-[1rem] leading-8 text-[#4e4741] list-disc marker:text-[#605248]">
+                        <ul class="mt-4 list-disc space-y-2 pl-5 text-[1rem] leading-8 text-[#4e4741] marker:text-[#605248]">
                           {section.bullets.map((item) => <li>{item}</li>)}
                         </ul>
                       )}
+
                       {section.subsections && (
                         <div class="mt-4 grid gap-4 md:grid-cols-2">
                           {section.subsections.map((subsection) => (
                             <div class="rounded-[0.8rem] border border-[#eee7df] bg-[#fbf8f5] p-4">
                               {subsection.label && <p class="text-[1rem] font-semibold text-[#2f2924]">{subsection.label}</p>}
+
                               {subsection.bullets && (
-                                <ul class="mt-2 space-y-2 pl-5 text-[1rem] leading-8 text-[#4e4741] list-disc marker:text-[#605248]">
+                                <ul class="mt-2 list-disc space-y-2 pl-5 text-[1rem] leading-8 text-[#4e4741] marker:text-[#605248]">
                                   {subsection.bullets.map((item) => <li>{item}</li>)}
                                 </ul>
                               )}
+
                               {subsection.paragraph && <p class="mt-3 text-[1rem] leading-8 text-[#4e4741]">{subsection.paragraph}</p>}
                             </div>
                           ))}
@@ -473,20 +482,34 @@ const lessons = [
                     </article>
                   ))}
 
-                  <article class="rounded-[0.95rem] border border-transparent p-5 text-white md:col-span-2" style={`background: linear-gradient(135deg, ${lesson.theme.deep} 0%, ${lesson.theme.accent} 100%);`}>
-                    <div class="flex flex-wrap items-start justify-between gap-4">
-                      <div class="max-w-3xl">
+                </div>
+
+                <article class="rounded-[0.95rem] border border-transparent p-5 text-white md:p-6 xl:col-span-12" style={`background: linear-gradient(135deg, ${lesson.theme.deep} 0%, ${lesson.theme.accent} 100%);`}>
+                    <div class="grid gap-6 lg:grid-cols-2 lg:items-start">
+                      <div class="min-w-0">
                         <p class="inline-flex rounded-full bg-white/18 px-4 py-2 text-sm font-semibold">{lesson.assessment.title}</p>
                         <p class="mt-4 text-[1.38rem] font-semibold leading-[1.45] tracking-[-0.02em]">{lesson.assessment.scenario}</p>
                         <p class="mt-5 text-lg font-semibold">{lesson.assessment.scene}</p>
                         <p class="mt-3 text-[1rem] leading-8 text-white/92">{lesson.assessment.customerIntro}</p>
-                        <p class="mt-2 text-[1.08rem] italic leading-8 text-white/95">{lesson.assessment.customerQuote}</p>
+
+                        <div class="mt-5 flex items-start gap-4">
+                          <div class="avatar placeholder shrink-0">
+                            <div class="flex w-12 items-center justify-center rounded-full bg-[#2c241f] text-white">
+                              <span class="text-lg font-semibold">C</span>
+                            </div>
+                          </div>
+                          <div class="chat chat-start m-0">
+                            <div class="chat-bubble border border-[#e7dfd8] bg-white text-[#2a231f]">
+                              {lesson.assessment.customerQuote}
+                            </div>
+                          </div>
+                        </div>
+
                         <p class="mt-4 text-[1rem] leading-8 text-white/95">{lesson.assessment.goal}</p>
                         <p class="mt-4 text-[1rem] leading-8 text-white/95">Click the button below to test your knowledge.</p>
                       </div>
-                    </div>
 
-                    <details class="mt-5 overflow-hidden rounded-[0.9rem] border border-white/18 bg-white/92 text-[#2a231f] shadow-[0_10px_28px_rgba(40,27,20,0.10)]">
+                    <details class="overflow-hidden rounded-[0.9rem] border border-white/18 bg-white/92 text-[#2a231f] shadow-[0_10px_28px_rgba(40,27,20,0.10)] lg:self-start">
                       <summary class="list-none cursor-pointer px-5 py-4">
                         <span class="inline-flex rounded-full bg-[#2c241f] px-6 py-3 text-base font-semibold text-white">{lesson.assessment.button}</span>
                       </summary>
@@ -500,8 +523,11 @@ const lessons = [
 
                           <div class="mt-4 space-y-4">
                             {lesson.assessment.quiz.map((question, questionIndex) => (
-                              <div class={`quiz-step rounded-[0.9rem] border border-[#ebe3db] bg-[#fbf8f5] p-5 ${questionIndex !== 0 ? 'hidden' : ''}`} data-step data-correct={question.correct}>
-                                <p class="pr-2 text-[1.05rem] font-semibold leading-7 text-[#2f2924]">{questionIndex + 1}. {question.question}</p>
+                              <div class={`quiz-step rounded-[0.9rem] border border-[#ebe3db] bg-[#fbf8f5] p-5 ${questionIndex !== 0 ? "hidden" : ""}`} data-step data-correct={question.correct}>
+                                <p class="pr-2 text-[1.05rem] font-semibold leading-7 text-[#2f2924]">
+                                  {questionIndex + 1}. {question.question}
+                                </p>
+
                                 <div class="mt-4 space-y-3">
                                   {question.options.map((option, optionIndex) => (
                                     <label class="flex cursor-pointer gap-3 rounded-[0.8rem] border border-[#efe6df] bg-white px-4 py-3 text-sm leading-6 text-[#4d433d] transition hover:border-[#d5c3b7] hover:bg-[#fcfaf8]">
@@ -510,6 +536,7 @@ const lessons = [
                                     </label>
                                   ))}
                                 </div>
+
                                 <p class="quiz-feedback mt-4 hidden rounded-[0.8rem] bg-[#f5efe9] px-4 py-3 text-sm leading-6 text-[#4b4039]">{question.feedback}</p>
                               </div>
                             ))}
@@ -525,8 +552,8 @@ const lessons = [
                         </div>
                       </div>
                     </details>
-                  </article>
-                </div>
+                  </div>
+                </article>
               </div>
             </div>
           </section>
@@ -545,6 +572,7 @@ const lessons = [
         const checkButton = quiz.querySelector('.quiz-check');
         const resetButton = quiz.querySelector('.quiz-reset');
         const result = quiz.querySelector('.quiz-result');
+
         let current = 0;
 
         const cleanBaseText = (text) => {
@@ -620,20 +648,25 @@ const lessons = [
 
         const resetQuiz = () => {
           current = 0;
+
           steps.forEach((step) => {
             step.querySelectorAll('input[type="radio"]').forEach((input) => {
               input.checked = false;
             });
+
             step.classList.remove('ring-2', 'ring-[#b19a84]', 'ring-red-200');
+
             const feedback = step.querySelector('.quiz-feedback');
             if (feedback) {
               feedback.textContent = feedback.dataset.base || cleanBaseText(feedback.textContent);
               feedback.classList.add('hidden');
             }
           });
+
           if (result) {
             result.textContent = 'Check each question to see feedback straight away.';
           }
+
           updateView();
         };
 
@@ -656,6 +689,7 @@ const lessons = [
         });
 
         resetButton?.addEventListener('click', resetQuiz);
+
         updateView();
       });
     </script>
