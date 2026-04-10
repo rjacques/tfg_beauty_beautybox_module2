@@ -4,6 +4,18 @@ import courseHero from "../images/course-hero.jpg";
 import primerProductImage1 from "../images/OBC-PRimer-1.png";
 import primerProductImage2 from "../images/OBC-PRimer-2.png";
 import lesson1BannerImage from "../images/lesson-1-banner-inage.jpg";
+import correctorProductImage1 from "../images/ OBC-the-flawless-corrector1.png";
+import correctorProductImage2 from "../images/ OBC-the-flawless-corrector2.png";
+import correctorBannerImage from "../images/obc-the-flawless-corrector-coverimg.jpg";
+import powderProductImage1 from "../images/OBC-loose-powder-1.png";
+import powderProductImage2 from "../images/OBC-loose-powde-3.png";
+import powderBannerImage from "../images/obc-loose-powder-coverimg.jpg";
+import blushProductImage1 from "../images/OBC-blush-duo-2-1.png";
+import blushProductImage2 from "../images/OBC-blush-duo-2-2.png";
+import blushBannerImage from "../images/obc-blush-due-2-coverimg.jpg";
+import bronzerProductImage1 from "../images/OBC-bronzer-1.png";
+import bronzerProductImage2 from "../images/OBC-bronzer-2.png";
+import bronzerBannerImage from "../images/obc-the-bronzer-coverimg.jpg";
 import topTipIcon from "../images/top-tip.svg?url";
 
 function stripNumbering(text) {
@@ -169,6 +181,14 @@ function softProduct(accent, soft, deep, shape) {
   `);
 }
 
+const navItems = [
+  { href: "#primer", label: "Primer" },
+  { href: "#corrector", label: "Corrector" },
+  { href: "#powder", label: "Powder" },
+  { href: "#blush", label: "Blush" },
+  { href: "#bronzer", label: "Bronzer" },
+];
+
 const lessons = [
   {
     id: "primer",
@@ -176,6 +196,8 @@ const lessons = [
     title: "The Primer",
     visual: "primer",
     theme: { accent: "#d2b7a6", soft: "#f4efea", deep: "#8d7260" },
+    bannerImage: lesson1BannerImage,
+    productImages: [primerProductImage1, primerProductImage2],
     productName: "1.1) OBC Primer",
     looksLike: "What it looks like:",
     overviewHeading: "1.1.1) Product Overview",
@@ -252,6 +274,8 @@ const lessons = [
     title: "The Flawless Corrector",
     visual: "corrector",
     theme: { accent: "#e4b6aa", soft: "#f7f1ed", deep: "#a67867" },
+    bannerImage: correctorBannerImage,
+    productImages: [correctorProductImage1, correctorProductImage2],
     productName: "2.1) OBC the flawless corrector",
     looksLike: "What it looks like:",
     overviewHeading: "2.1.1) Product Overview",
@@ -331,6 +355,8 @@ const lessons = [
     title: "Loose powder",
     visual: "powder",
     theme: { accent: "#d9c29c", soft: "#f8f3ed", deep: "#9a805b" },
+    bannerImage: powderBannerImage,
+    productImages: [powderProductImage1, powderProductImage2],
     productName: "3.1) OBC loose powder",
     looksLike: "What it looks like:",
     overviewHeading: "3.1.1) Product Overview",
@@ -412,6 +438,8 @@ const lessons = [
     title: "Blush duo 2",
     visual: "blush",
     theme: { accent: "#eca3b8", soft: "#f9eff2", deep: "#a45d73" },
+    bannerImage: blushBannerImage,
+    productImages: [blushProductImage1, blushProductImage2],
     productName: "4.1) OBC blush duo 2",
     looksLike: "What it looks like:",
     overviewHeading: "4.1.1) Product Overview",
@@ -489,6 +517,8 @@ const lessons = [
     title: "The Bronzer",
     visual: "bronzer",
     theme: { accent: "#d58f62", soft: "#f8f1ed", deep: "#9a633e" },
+    bannerImage: bronzerBannerImage,
+    productImages: [bronzerProductImage1, bronzerProductImage2],
     productName: "5.1) OBC bronzer",
     overviewHeading: "5.1.1) Product Overview",
     overview: [
@@ -571,27 +601,51 @@ const lessons = [
     <title>Module 2 | Let’s talk make up - Face</title>
   </head>
   <body class="bg-[#f4f1ed] text-[#27211c] selection:bg-[#d8c4b4] selection:text-[#241d18]">
-    <main class="mx-auto max-w-[1240px] px-4 py-4 md:px-6 md:py-6">
-      <header class="sticky top-3 z-30 rounded-[0.9rem] border border-[#e6dfd8] bg-white/94 px-4 py-3 shadow-[0_10px_26px_rgba(56,37,24,0.05)] backdrop-blur md:px-6">
-        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <main class="mx-auto max-w-[1240px] px-3 py-3 md:px-6 md:py-6">
+      <header class="sticky top-3 z-30 rounded-[0.9rem] border border-[#e6dfd8] bg-white/94 px-3 py-3 shadow-[0_10px_26px_rgba(56,37,24,0.05)] backdrop-blur md:px-6">
+        <div class="flex items-center justify-between gap-3 md:hidden">
+          <div class="flex min-w-0 items-center gap-3">
+            <img src={TFG_LOGO} alt="TFG logo" class="h-10 w-10 shrink-0" />
+            <p class="min-w-0 text-sm font-medium leading-5 text-[#51463d]">Let’s talk make up - Face</p>
+          </div>
+
+          <details class="relative shrink-0 md:hidden" data-mobile-nav>
+            <summary class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full border border-[#e8e0d8] bg-[#faf8f6] text-[#51463d] transition hover:bg-[#f4efea] [&::-webkit-details-marker]:hidden">
+              <span class="sr-only">Toggle lesson navigation</span>
+              <span aria-hidden="true" class="flex flex-col gap-[0.28rem]">
+                <span class="block h-[2px] w-5 rounded-full bg-current"></span>
+                <span class="block h-[2px] w-5 rounded-full bg-current"></span>
+                <span class="block h-[2px] w-5 rounded-full bg-current"></span>
+              </span>
+            </summary>
+
+            <div class="absolute right-0 top-[calc(100%+0.75rem)] z-20 w-64 max-w-[calc(100vw-1.5rem)] overflow-hidden rounded-[0.9rem] border border-[#e6dfd8] bg-white p-2 shadow-[0_14px_36px_rgba(56,39,27,0.09)]">
+              <div class="flex flex-col gap-1.5 text-sm text-[#51463d]">
+                {navItems.map((item) => (
+                  <a href={item.href} class="rounded-[0.75rem] px-4 py-3 transition hover:bg-[#f4efea]" data-mobile-nav-link>{item.label}</a>
+                ))}
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="hidden md:flex md:items-center md:justify-between md:gap-6">
           <div class="flex items-center gap-4">
             <img src={TFG_LOGO} alt="TFG logo" class="h-10 w-10" />
             <p class="text-sm font-medium text-[#51463d]">Let’s talk make up - Face</p>
           </div>
           <div class="flex flex-wrap gap-2 text-sm text-[#51463d]">
-            <a href="#primer" class="rounded-full border border-[#e8e0d8] bg-[#faf8f6] px-4 py-2 hover:bg-[#f4efea]">Primer</a>
-            <a href="#corrector" class="rounded-full border border-[#e8e0d8] bg-[#faf8f6] px-4 py-2 hover:bg-[#f4efea]">Corrector</a>
-            <a href="#powder" class="rounded-full border border-[#e8e0d8] bg-[#faf8f6] px-4 py-2 hover:bg-[#f4efea]">Powder</a>
-            <a href="#blush" class="rounded-full border border-[#e8e0d8] bg-[#faf8f6] px-4 py-2 hover:bg-[#f4efea]">Blush</a>
-            <a href="#bronzer" class="rounded-full border border-[#e8e0d8] bg-[#faf8f6] px-4 py-2 hover:bg-[#f4efea]">Bronzer</a>
+            {navItems.map((item) => (
+              <a href={item.href} class="rounded-full border border-[#e8e0d8] bg-[#faf8f6] px-4 py-2 hover:bg-[#f4efea]">{item.label}</a>
+            ))}
           </div>
         </div>
       </header>
 
       <section class="relative mt-4 overflow-hidden rounded-[1rem] border border-[#e3ddd7] bg-[#f6f1ec] shadow-[0_14px_36px_rgba(56,39,27,0.05)]">
-        <img src={courseHero.src} alt="Beauty course hero image" class="absolute inset-y-0 right-0 h-full w-[50%] object-cover object-right" />
-        <div class="absolute inset-y-0 right-[10%] w-[40%]" style="background: linear-gradient(90deg, #f6f1ec 0%, rgba(246, 241, 236, 0) 100%);"></div>
-        <div class="relative px-6 py-14 md:px-10 md:py-20 lg:px-12 lg:py-24">
+        <img src={courseHero.src} alt="Beauty course hero image" class="absolute inset-0 h-full w-full object-cover object-center md:inset-y-0 md:left-auto md:right-0 md:w-[50%] md:object-right" />
+        <div class="absolute inset-0 bg-[linear-gradient(180deg,_rgba(246,241,236,1)_0%,_rgba(246,241,236,0)_100%)] md:inset-y-0 md:left-auto md:right-[10%] md:w-[40%] md:bg-[linear-gradient(90deg,_#f6f1ec_0%,_rgba(246,241,236,0)_100%)]"></div>
+        <div class="relative px-4 py-10 md:px-10 md:py-20 lg:px-12 lg:py-24">
           <img src={OBC_LOGO} alt="Beauty Co. logo" class="h-[4.8rem] w-auto md:h-24" />
           <div class="mt-6 inline-flex items-center gap-3 rounded-full border border-[#e6ddd5] bg-white/88 px-4 py-2 backdrop-blur md:mt-8">
             <span class="text-xs font-semibold uppercase tracking-[0.22em] text-[#8f7968]">Module 2</span>
@@ -603,48 +657,45 @@ const lessons = [
       <section class="mt-6 space-y-6">
         {lessons.map((lesson) => (
           <section id={lesson.id} class="overflow-hidden rounded-[1rem] border border-[#e3ddd7] bg-[#fbfaf8] shadow-[0_14px_36px_rgba(56,39,27,0.05)]">
-            {lesson.id === "primer" ? (
-              <div class="overflow-hidden">
-                <img src={lesson1BannerImage.src} alt={`${lesson.title} banner`} class="h-[220px] w-full object-cover object-right md:h-[280px] lg:h-[320px]" />
-              </div>
-            ) : (
-              <div>
-                <img src={softBanner(lesson.theme.accent, lesson.theme.soft, lesson.theme.deep)} alt={`${lesson.title} banner`} class="h-[220px] w-full object-cover md:h-[280px] lg:h-[320px]" />
-              </div>
-            )}
+            <div class="overflow-hidden">
+              <img
+                src={lesson.bannerImage ? lesson.bannerImage.src : softBanner(lesson.theme.accent, lesson.theme.soft, lesson.theme.deep)}
+                alt={`${lesson.title} banner`}
+                class={`h-[220px] w-full object-cover md:h-[280px] lg:h-[320px] ${lesson.id === "primer" ? "object-right" : ""}`}
+              />
+            </div>
 
-            <div class="px-6 py-7 md:px-8 md:py-8 lg:px-10">
+            <div class="px-4 py-5 md:px-8 md:py-8 lg:px-10">
               <div class="space-y-4">
-                <article class="p-5 lg:p-6">
+                <article class="p-3 md:p-5 lg:p-6">
                   <div class="lg:grid lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.58fr)] lg:items-center lg:gap-10">
                     <div class="lg:flex lg:max-w-[34rem] lg:flex-col lg:justify-center">
-                      <p class="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[1.125rem] font-semibold uppercase tracking-[0.18em] text-[#8f7968]">
+                      <p class="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[1.25rem] font-semibold uppercase leading-[1.25] tracking-[0.18em] text-[#8f7968] md:text-[1.125rem]">
                         <span class="shrink-0">{lesson.lesson} -</span>
-                        <span class="whitespace-nowrap">{lesson.title}</span>
+                        <span class="md:whitespace-nowrap">{lesson.title}</span>
                       </p>
-                      <p class="mt-3 text-[2.1875rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(lesson.productName)}</p>
+                      <p class="mt-3 text-[1.5rem] font-semibold leading-[1.2] tracking-[-0.02em] text-[#2f2924] md:text-[2.1875rem]">{stripNumbering(lesson.productName)}</p>
 
                       {lesson.looksLike && <p class="mt-4 text-[1.125rem] leading-8 text-[#504841]">{lesson.looksLike}</p>}
                     </div>
 
-                    {lesson.id === "primer" ? (
-                      <div class="mt-5 grid grid-cols-2 gap-5 lg:mt-0 lg:gap-7">
-                        <div class="aspect-square w-full overflow-hidden rounded-[0.8rem] bg-[#f6f2ee]">
-                          <img src={primerProductImage1.src} alt="OBC Primer product image 1" class="h-full w-full object-cover" />
-                        </div>
-                        <div class="aspect-square w-full overflow-hidden rounded-[0.8rem] bg-[#f6f2ee]">
-                          <img src={primerProductImage2.src} alt="OBC Primer product image 2" class="h-full w-full object-cover" />
-                        </div>
+                    {lesson.productImages?.length ? (
+                      <div class="mt-4 grid grid-cols-2 gap-3 md:mt-5 md:gap-5 lg:mt-0 lg:gap-7">
+                        {lesson.productImages.map((productImage, index) => (
+                          <div class="aspect-square w-full overflow-hidden rounded-[0.8rem] bg-[#f6f2ee]">
+                            <img src={productImage.src} alt={`${lesson.title} product image ${index + 1}`} class="h-full w-full object-cover" />
+                          </div>
+                        ))}
                       </div>
                     ) : (
-                      <div class="mt-5 overflow-hidden rounded-[0.8rem] bg-[#f6f2ee] lg:mt-0">
+                      <div class="mt-4 overflow-hidden rounded-[0.8rem] bg-[#f6f2ee] md:mt-5 lg:mt-0">
                         <img src={softProduct(lesson.theme.accent, lesson.theme.soft, lesson.theme.deep, lesson.visual)} alt={`${lesson.title} visual`} class="h-full w-full object-cover" />
                       </div>
                     )}
                   </div>
                 </article>
 
-                <article class="rounded-[0.95rem] border border-[#e7dfd8] bg-white p-5">
+                <article class="rounded-[0.95rem] border border-[#e7dfd8] bg-white p-4 md:p-5">
                     <h3 class="mt-3 text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(lesson.overviewHeading)}</h3>
                     <div class="mt-4 space-y-4 text-[1.125rem] leading-8 text-[#4e4741]">
                       {lesson.overview.map((paragraph) => <p>{paragraph}</p>)}
@@ -657,7 +708,7 @@ const lessons = [
                     const lessonSectionSpanClasses = getSectionSpanClasses(lessonSections);
 
                     return lessonSections.map((section, index) => (
-                      <article class={`rounded-[0.95rem] bg-white/50 p-5 shadow-[0_10px_24px_rgba(56,39,27,0.035)] ${lessonSectionSpanClasses[index]}`}>
+                      <article class={`rounded-[0.95rem] bg-white/50 p-4 shadow-[0_10px_24px_rgba(56,39,27,0.035)] md:p-5 ${lessonSectionSpanClasses[index]}`}>
                         {section.heading && <h3 class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(section.heading)}</h3>}
                         {section.label && !section.heading && <p class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{section.label}</p>}
                         {section.label && section.heading && <p class="mt-3 text-[1.125rem] text-[#4e4741]">{section.label}</p>}
@@ -672,7 +723,7 @@ const lessons = [
                         {section.subsections && (
                           <div class="mt-4 grid gap-4 md:grid-cols-2">
                             {section.subsections.map((subsection) => (
-                              <div class="rounded-[0.8rem] bg-white/50 p-4 shadow-[0_8px_18px_rgba(56,39,27,0.03)]">
+                              <div class="rounded-[0.8rem] bg-white/50 p-3 shadow-[0_8px_18px_rgba(56,39,27,0.03)] md:p-4">
                                 {subsection.label && <p class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{subsection.label}</p>}
 
                                 {subsection.bullets && (
@@ -699,7 +750,7 @@ const lessons = [
                   return (
                     <div class="grid gap-4 md:grid-cols-2">
                       {lesson.topTip && (
-                        <article class={`rounded-[0.95rem] border border-[#c9bfaa] p-5 text-[#2f2924] ${!howToSellSection ? "md:col-span-2" : ""}`} style={`background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, ${lesson.theme.accent}26 100%);`}>
+                        <article class={`rounded-[0.95rem] border border-[#c9bfaa] p-4 text-[#2f2924] md:p-5 ${!howToSellSection ? "md:col-span-2" : ""}`} style={`background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, ${lesson.theme.accent}26 100%);`}>
                           <div class="flex items-center gap-2 text-[1.5rem] font-semibold tracking-[-0.02em] text-[#6e6054]">
                             <img src={topTipIcon} alt="" aria-hidden="true" class="w-auto shrink-0" style="height:1.1em;" />
                             <p class="leading-none">Top Tip</p>
@@ -709,7 +760,7 @@ const lessons = [
                       )}
 
                       {howToSellSection && (
-                        <article class={`rounded-[0.95rem] border border-[#c9bfaa] p-5 text-[#2f2924] ${!lesson.topTip ? "md:col-span-2" : ""}`} style={`background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, ${lesson.theme.accent}26 100%);`}>
+                        <article class={`rounded-[0.95rem] border border-[#c9bfaa] p-4 text-[#2f2924] md:p-5 ${!lesson.topTip ? "md:col-span-2" : ""}`} style={`background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, ${lesson.theme.accent}26 100%);`}>
                           <div class="flex items-center gap-2 text-[1.5rem] font-semibold tracking-[-0.02em] text-[#6e6054]">
                             <img src={topTipIcon} alt="" aria-hidden="true" class="w-auto shrink-0" style="height:1.1em;" />
                             <p class="leading-none">{howToSellSection.heading ? stripNumbering(howToSellSection.heading) : "How to sell"}</p>
@@ -752,7 +803,7 @@ const lessons = [
                   if (!whenToRecommendSection) return null;
 
                   return (
-                    <article class="p-5">
+                    <article class="p-4 md:p-5">
                       {whenToRecommendSection.heading && <h3 class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(whenToRecommendSection.heading)}</h3>}
                       {whenToRecommendSection.label && !whenToRecommendSection.heading && <p class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{whenToRecommendSection.label}</p>}
                       {whenToRecommendSection.label && whenToRecommendSection.heading && <p class="mt-3 text-[1.125rem] text-[#4e4741]">{whenToRecommendSection.label}</p>}
@@ -767,7 +818,7 @@ const lessons = [
                   );
                 })()}
 
-                <article class="rounded-[0.95rem] border border-transparent p-5 text-white md:p-6" style={`background: linear-gradient(135deg, ${lesson.theme.deep} 0%, ${lesson.theme.accent} 100%);`}>
+                <article class="rounded-[0.95rem] border border-transparent p-4 text-white md:p-6" style={`background: linear-gradient(135deg, ${lesson.theme.deep} 0%, ${lesson.theme.accent} 100%);`}>
                     <div class="grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
                       <div class="min-w-0">
                         <p class="inline-flex rounded-full bg-white/18 px-4 py-2 text-sm font-semibold">{lesson.assessment.title}</p>
@@ -781,10 +832,8 @@ const lessons = [
                               <span class="text-lg font-semibold">C</span>
                             </div>
                           </div>
-                          <div class="chat chat-start m-0">
-                            <div class="chat-bubble border border-[#e7dfd8] bg-white text-[#2a231f]">
-                              {lesson.assessment.customerQuote}
-                            </div>
+                          <div class="relative max-w-[32rem] rounded-[1.15rem] bg-white px-4 py-3 text-[#2a231f] before:absolute before:left-[-0.35rem] before:top-5 before:h-4 before:w-4 before:rotate-45 before:rounded-[0.15rem] before:bg-white before:content-['']">
+                            {lesson.assessment.customerQuote}
                           </div>
                         </div>
 
@@ -792,7 +841,7 @@ const lessons = [
                       </div>
 
                     <div class="overflow-hidden rounded-[0.9rem] border border-white/18 bg-white/92 text-[#2a231f] shadow-[0_10px_28px_rgba(40,27,20,0.10)] lg:self-start">
-                      <div class="px-5 py-5">
+                      <div class="px-4 py-4 md:px-5 md:py-5">
                         <div class="quiz" data-quiz>
                           <div class="flex items-center justify-between gap-4">
                             <p class="text-sm uppercase tracking-[0.18em] text-[#8f7968]">Knowledge check</p>
@@ -801,7 +850,7 @@ const lessons = [
 
                           <div class="mt-4 space-y-4">
                             {lesson.assessment.quiz.map((question, questionIndex) => (
-                              <div class={`quiz-step rounded-[0.9rem] border border-[#ebe3db] bg-[#fbf8f5] p-5 ${questionIndex !== 0 ? "hidden" : ""}`} data-step data-correct={question.correct}>
+                              <div class={`quiz-step rounded-[0.9rem] border border-[#ebe3db] bg-[#fbf8f5] p-4 md:p-5 ${questionIndex !== 0 ? "hidden" : ""}`} data-step data-correct={question.correct}>
                                 <p class="pr-2 text-[1.05rem] font-semibold leading-7 text-[#2f2924]">
                                   {questionIndex + 1}. {question.question}
                                 </p>
@@ -840,6 +889,24 @@ const lessons = [
     </main>
 
     <script is:inline>
+      const mobileNavs = document.querySelectorAll('[data-mobile-nav]');
+
+      document.addEventListener('click', (event) => {
+        mobileNavs.forEach((menu) => {
+          if (!menu.contains(event.target)) {
+            menu.removeAttribute('open');
+          }
+        });
+      });
+
+      mobileNavs.forEach((menu) => {
+        menu.querySelectorAll('[data-mobile-nav-link]').forEach((link) => {
+          link.addEventListener('click', () => {
+            menu.removeAttribute('open');
+          });
+        });
+      });
+
       const quizzes = document.querySelectorAll('[data-quiz]');
 
       quizzes.forEach((quiz) => {
