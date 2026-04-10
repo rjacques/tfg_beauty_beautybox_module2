@@ -1,7 +1,6 @@
 ---
 import "../styles/global.css";
-//import courseHero from "../images/course-hero.jpg";
-import courseHero from "../images/hero_anim.webp";
+import courseHero from "../images/course-hero.jpg";
 import primerProductImage1 from "../images/OBC-PRimer-1.png";
 import primerProductImage2 from "../images/OBC-PRimer-2.png";
 import lesson1BannerImage from "../images/lesson-1-banner-inage.jpg";
@@ -16,23 +15,55 @@ function stripNumbering(text) {
   return isNumbered ? parts.slice(1).join(") ") : text;
 }
 
-function getLessonSectionsWithTopTip(lesson) {
-  const items = lesson.sections.map((section) => ({ type: "section", section }));
-  if (!lesson.topTip) return items;
+function isHowToSellSection(section) {
+  return stripNumbering(section.heading || "").toLowerCase().includes("how to sell");
+}
 
-  const insertIndex = lesson.sections.findIndex((section) =>
-    stripNumbering(section.heading || "").toLowerCase().includes("when to recommend")
+function isWhenToRecommendSection(section) {
+  return stripNumbering(section.heading || "").toLowerCase().includes("when to recommend");
+}
+
+function getHowToSellSection(lesson) {
+  return lesson.sections.find((section) => isHowToSellSection(section));
+}
+
+function getWhenToRecommendSection(lesson) {
+  return lesson.sections.find((section) => isWhenToRecommendSection(section));
+}
+
+function getRegularSectionsAfterOverview(lesson) {
+  return lesson.sections.filter(
+    (section) => !isHowToSellSection(section) && !isWhenToRecommendSection(section)
   );
+}
 
-  const topTipItem = { type: "topTip", content: lesson.topTip };
+function getSectionSpanClasses(sections) {
+  const classes = Array(sections.length).fill("");
+  let openHalfWidthIndex = null;
 
-  if (insertIndex === -1) {
-    items.push(topTipItem);
-  } else {
-    items.splice(insertIndex, 0, topTipItem);
+  sections.forEach((section, index) => {
+    if (section.subsections) {
+      if (openHalfWidthIndex !== null) {
+        classes[openHalfWidthIndex] = "md:col-span-2";
+        openHalfWidthIndex = null;
+      }
+
+      classes[index] = "md:col-span-2";
+      return;
+    }
+
+    if (openHalfWidthIndex === null) {
+      openHalfWidthIndex = index;
+    } else {
+      openHalfWidthIndex = null;
+    }
+  });
+
+  if (openHalfWidthIndex !== null) {
+    classes[openHalfWidthIndex] = "md:col-span-2";
   }
 
-  return items;
+  return classes;
 }
 
 function svgToDataUri(svg) {
@@ -558,101 +589,90 @@ const lessons = [
       </header>
 
       <section class="relative mt-4 overflow-hidden rounded-[1rem] border border-[#e3ddd7] bg-[#f6f1ec] shadow-[0_14px_36px_rgba(56,39,27,0.05)]">
-        <img src={courseHero.src} alt="Beauty course hero image" class="absolute inset-y-0 right-0 h-full w-[52%] object-cover object-right" />
-        <div class="absolute inset-y-0 right-[36%] w-[22%]" style="background: linear-gradient(90deg, #f6f1ec 0%, rgba(246, 241, 236, 0.92) 38%, rgba(246, 241, 236, 0.55) 68%, rgba(246, 241, 236, 0) 100%);"></div>
+        <img src={courseHero.src} alt="Beauty course hero image" class="absolute inset-y-0 right-0 h-full w-[50%] object-cover object-right" />
+        <div class="absolute inset-y-0 right-[10%] w-[40%]" style="background: linear-gradient(90deg, #f6f1ec 0%, rgba(246, 241, 236, 0) 100%);"></div>
         <div class="relative px-6 py-14 md:px-10 md:py-20 lg:px-12 lg:py-24">
-          <div class="inline-flex items-center gap-3 rounded-full border border-[#e6ddd5] bg-white/88 px-4 py-2 backdrop-blur">
+          <img src={OBC_LOGO} alt="Beauty Co. logo" class="h-[4.8rem] w-auto md:h-24" />
+          <div class="mt-6 inline-flex items-center gap-3 rounded-full border border-[#e6ddd5] bg-white/88 px-4 py-2 backdrop-blur md:mt-8">
             <span class="text-xs font-semibold uppercase tracking-[0.22em] text-[#8f7968]">Module 2</span>
           </div>
-          <img src={OBC_LOGO} alt="Beauty Co. logo" class="mt-8 h-16 w-auto md:h-20" />
-          <h1 class="mt-8 max-w-md text-4xl font-semibold tracking-[-0.03em] text-[#2f2924] md:text-6xl">Let’s talk make up - Face</h1>
-          <p class="mt-4 text-xl italic text-[#665b53]">Beauty Makeup</p>
+          <h1 class="mt-10 max-w-md text-4xl font-semibold tracking-[-0.03em] text-[#2f2924] md:mt-12 md:text-6xl">Let’s talk make up - Face</h1>
         </div>
       </section>
 
       <section class="mt-6 space-y-6">
         {lessons.map((lesson) => (
           <section id={lesson.id} class="overflow-hidden rounded-[1rem] border border-[#e3ddd7] bg-[#fbfaf8] shadow-[0_14px_36px_rgba(56,39,27,0.05)]">
-            <div class="grid lg:grid-cols-[0.36fr_0.64fr] lg:items-end">
-              <div class="px-6 py-7 md:px-8 md:py-8">
-                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#8f7968]">{lesson.lesson}</p>
-                <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[#2f2924] md:text-4xl">{lesson.title}</h2>
+            {lesson.id === "primer" ? (
+              <div class="overflow-hidden">
+                <img src={lesson1BannerImage.src} alt={`${lesson.title} banner`} class="h-[220px] w-full object-cover object-right md:h-[280px] lg:h-[320px]" />
               </div>
-
-              {lesson.id === "primer" ? (
-                <div class="relative overflow-hidden">
-                  <img src={lesson1BannerImage.src} alt={`${lesson.title} banner`} class="h-[170px] w-full object-cover object-right md:h-[200px]" />
-                  <div class="absolute inset-0 bg-gradient-to-r from-[#f7f2ed] via-[#f7f2ed]/95 via-[50%] to-transparent to-[68%]"></div>
-                </div>
-              ) : (
-                <div>
-                  <img src={softBanner(lesson.theme.accent, lesson.theme.soft, lesson.theme.deep)} alt={`${lesson.title} banner`} class="h-[170px] w-full object-cover md:h-[200px]" />
-                </div>
-              )}
-            </div>
+            ) : (
+              <div>
+                <img src={softBanner(lesson.theme.accent, lesson.theme.soft, lesson.theme.deep)} alt={`${lesson.title} banner`} class="h-[220px] w-full object-cover md:h-[280px] lg:h-[320px]" />
+              </div>
+            )}
 
             <div class="px-6 py-7 md:px-8 md:py-8 lg:px-10">
-              <div class="grid gap-4 xl:grid-cols-12">
-                <aside class={`space-y-4 ${lesson.id === "primer" ? "xl:col-span-5" : "xl:col-span-4"}`}>
-                  <div class="rounded-[0.95rem] border border-[#e7dfd8] bg-white p-5">
-                    <p class="text-xs uppercase tracking-[0.18em] text-[#8f7968]">Product</p>
-                    <h3 class="mt-3 text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(lesson.productName)}</h3>
+              <div class="space-y-4">
+                <article class="p-5 lg:p-6">
+                  <div class="lg:grid lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.58fr)] lg:items-center lg:gap-10">
+                    <div class="lg:flex lg:max-w-[34rem] lg:flex-col lg:justify-center">
+                      <p class="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[1.125rem] font-semibold uppercase tracking-[0.18em] text-[#8f7968]">
+                        <span class="shrink-0">{lesson.lesson} -</span>
+                        <span class="whitespace-nowrap">{lesson.title}</span>
+                      </p>
+                      <p class="mt-3 text-[2.1875rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(lesson.productName)}</p>
 
-                    {lesson.looksLike && <p class="mt-4 text-[1.125rem] leading-8 text-[#504841]">{lesson.looksLike}</p>}
+                      {lesson.looksLike && <p class="mt-4 text-[1.125rem] leading-8 text-[#504841]">{lesson.looksLike}</p>}
+                    </div>
 
                     {lesson.id === "primer" ? (
-                      <div class="mt-5 grid grid-cols-2 gap-4">
-                        <div class="aspect-square w-full overflow-hidden rounded-[0.8rem] border border-[#ece5de] bg-[#f6f2ee]">
+                      <div class="mt-5 grid grid-cols-2 gap-5 lg:mt-0 lg:gap-7">
+                        <div class="aspect-square w-full overflow-hidden rounded-[0.8rem] bg-[#f6f2ee]">
                           <img src={primerProductImage1.src} alt="OBC Primer product image 1" class="h-full w-full object-cover" />
                         </div>
-                        <div class="aspect-square w-full overflow-hidden rounded-[0.8rem] border border-[#ece5de] bg-[#f6f2ee]">
+                        <div class="aspect-square w-full overflow-hidden rounded-[0.8rem] bg-[#f6f2ee]">
                           <img src={primerProductImage2.src} alt="OBC Primer product image 2" class="h-full w-full object-cover" />
                         </div>
                       </div>
                     ) : (
-                      <div class="mt-5 overflow-hidden rounded-[0.8rem] border border-[#ece5de] bg-[#f6f2ee]">
-                        <img src={softProduct(lesson.theme.accent, lesson.theme.soft, lesson.theme.deep, lesson.visual)} alt={`${lesson.title} visual`} class="w-full object-cover" />
+                      <div class="mt-5 overflow-hidden rounded-[0.8rem] bg-[#f6f2ee] lg:mt-0">
+                        <img src={softProduct(lesson.theme.accent, lesson.theme.soft, lesson.theme.deep, lesson.visual)} alt={`${lesson.title} visual`} class="h-full w-full object-cover" />
                       </div>
                     )}
                   </div>
+                </article>
 
-                </aside>
-
-                <div class={`grid gap-4 md:grid-cols-2 ${lesson.id === "primer" ? "xl:col-span-7" : "xl:col-span-8"}`}>
-                  <article class="rounded-[0.95rem] border border-[#e7dfd8] bg-white p-5 md:col-span-2">
-                    <p class="text-xs uppercase tracking-[0.18em] text-[#8f7968]">Overview</p>
+                <article class="rounded-[0.95rem] border border-[#e7dfd8] bg-white p-5">
                     <h3 class="mt-3 text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(lesson.overviewHeading)}</h3>
                     <div class="mt-4 space-y-4 text-[1.125rem] leading-8 text-[#4e4741]">
                       {lesson.overview.map((paragraph) => <p>{paragraph}</p>)}
                     </div>
-                  </article>
+                </article>
 
-                  {getLessonSectionsWithTopTip(lesson).map((item) => (
-                    item.type === "topTip" ? (
-                      <article class="rounded-[0.95rem] border border-[#c9bfaa] bg-white p-5 text-[#2f2924] md:col-span-2">
-                        <div class="flex items-center gap-2 text-[1.5rem] font-semibold tracking-[-0.02em] text-[#6e6054]">
-                          <img src={topTipIcon} alt="" aria-hidden="true" class="w-auto shrink-0" style="height:1.1em;" />
-                          <p class="leading-none">Top Tip</p>
-                        </div>
-                        <p class="mt-3 text-[1.125rem] leading-8 text-[#4e4741]">{item.content}</p>
-                      </article>
-                    ) : (
-                      <article class={`rounded-[0.95rem] border border-[#e7dfd8] bg-white p-5 ${(item.section.subsections || (item.section.bullets && item.section.bullets.length > 4) || (item.section.paragraph && item.section.paragraph.length > 150)) ? "md:col-span-2" : ""}`}>
-                        {item.section.heading && <h3 class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(item.section.heading)}</h3>}
-                        {item.section.label && !item.section.heading && <p class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{item.section.label}</p>}
-                        {item.section.label && item.section.heading && <p class="mt-3 text-[1.125rem] text-[#4e4741]">{item.section.label}</p>}
-                        {item.section.paragraph && <p class="mt-4 text-[1.125rem] leading-8 text-[#4e4741]">{item.section.paragraph}</p>}
+                <div class="grid gap-4 md:grid-cols-2">
+                  {(() => {
+                    const lessonSections = getRegularSectionsAfterOverview(lesson);
+                    const lessonSectionSpanClasses = getSectionSpanClasses(lessonSections);
 
-                        {item.section.bullets && (
+                    return lessonSections.map((section, index) => (
+                      <article class={`rounded-[0.95rem] bg-white/50 p-5 shadow-[0_10px_24px_rgba(56,39,27,0.035)] ${lessonSectionSpanClasses[index]}`}>
+                        {section.heading && <h3 class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(section.heading)}</h3>}
+                        {section.label && !section.heading && <p class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{section.label}</p>}
+                        {section.label && section.heading && <p class="mt-3 text-[1.125rem] text-[#4e4741]">{section.label}</p>}
+                        {section.paragraph && <p class="mt-4 text-[1.125rem] leading-8 text-[#4e4741]">{section.paragraph}</p>}
+
+                        {section.bullets && (
                           <ul class="mt-4 list-disc space-y-2 pl-5 text-[1.125rem] leading-8 text-[#4e4741] marker:text-[#605248]">
-                            {item.section.bullets.map((bullet) => <li>{bullet}</li>)}
+                            {section.bullets.map((bullet) => <li>{bullet}</li>)}
                           </ul>
                         )}
 
-                        {item.section.subsections && (
+                        {section.subsections && (
                           <div class="mt-4 grid gap-4 md:grid-cols-2">
-                            {item.section.subsections.map((subsection) => (
-                              <div class="rounded-[0.8rem] border border-[#eee7df] bg-[#fbf8f5] p-4">
+                            {section.subsections.map((subsection) => (
+                              <div class="rounded-[0.8rem] bg-white/50 p-4 shadow-[0_8px_18px_rgba(56,39,27,0.03)]">
                                 {subsection.label && <p class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{subsection.label}</p>}
 
                                 {subsection.bullets && (
@@ -667,13 +687,88 @@ const lessons = [
                           </div>
                         )}
                       </article>
-                    )
-                  ))}
-
+                    ));
+                  })()}
                 </div>
 
-                <article class="rounded-[0.95rem] border border-transparent p-5 text-white md:p-6 xl:col-span-12" style={`background: linear-gradient(135deg, ${lesson.theme.deep} 0%, ${lesson.theme.accent} 100%);`}>
-                    <div class="grid gap-6 lg:grid-cols-2 lg:items-start">
+                {(() => {
+                  const howToSellSection = getHowToSellSection(lesson);
+
+                  if (!lesson.topTip && !howToSellSection) return null;
+
+                  return (
+                    <div class="grid gap-4 md:grid-cols-2">
+                      {lesson.topTip && (
+                        <article class={`rounded-[0.95rem] border border-[#c9bfaa] p-5 text-[#2f2924] ${!howToSellSection ? "md:col-span-2" : ""}`} style={`background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, ${lesson.theme.accent}26 100%);`}>
+                          <div class="flex items-center gap-2 text-[1.5rem] font-semibold tracking-[-0.02em] text-[#6e6054]">
+                            <img src={topTipIcon} alt="" aria-hidden="true" class="w-auto shrink-0" style="height:1.1em;" />
+                            <p class="leading-none">Top Tip</p>
+                          </div>
+                          <p class="mt-3 text-[1.125rem] leading-8 text-[#4e4741]">{lesson.topTip}</p>
+                        </article>
+                      )}
+
+                      {howToSellSection && (
+                        <article class={`rounded-[0.95rem] border border-[#c9bfaa] p-5 text-[#2f2924] ${!lesson.topTip ? "md:col-span-2" : ""}`} style={`background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, ${lesson.theme.accent}26 100%);`}>
+                          <div class="flex items-center gap-2 text-[1.5rem] font-semibold tracking-[-0.02em] text-[#6e6054]">
+                            <img src={topTipIcon} alt="" aria-hidden="true" class="w-auto shrink-0" style="height:1.1em;" />
+                            <p class="leading-none">{howToSellSection.heading ? stripNumbering(howToSellSection.heading) : "How to sell"}</p>
+                          </div>
+                          {howToSellSection.label && <p class="mt-3 text-[1.125rem] text-[#4e4741]">{howToSellSection.label}</p>}
+                          {howToSellSection.paragraph && <p class="mt-4 text-[1.125rem] leading-8 text-[#4e4741]">{howToSellSection.paragraph}</p>}
+
+                          {howToSellSection.bullets && (
+                            <ul class="mt-4 list-disc space-y-2 pl-5 text-[1.125rem] leading-8 text-[#4e4741] marker:text-[#605248]">
+                              {howToSellSection.bullets.map((bullet) => <li>{bullet}</li>)}
+                            </ul>
+                          )}
+
+                          {howToSellSection.subsections && (
+                            <div class="mt-4 grid gap-4 md:grid-cols-2">
+                              {howToSellSection.subsections.map((subsection) => (
+                                <div class="rounded-[0.8rem] border border-[#ddd0c2] bg-transparent p-4">
+                                  {subsection.label && <p class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{subsection.label}</p>}
+
+                                  {subsection.bullets && (
+                                    <ul class="mt-2 list-disc space-y-2 pl-5 text-[1.125rem] leading-8 text-[#4e4741] marker:text-[#605248]">
+                                      {subsection.bullets.map((bullet) => <li>{bullet}</li>)}
+                                    </ul>
+                                  )}
+
+                                  {subsection.paragraph && <p class="mt-3 text-[1.125rem] leading-8 text-[#4e4741]">{subsection.paragraph}</p>}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </article>
+                      )}
+                    </div>
+                  );
+                })()}
+
+                {(() => {
+                  const whenToRecommendSection = getWhenToRecommendSection(lesson);
+
+                  if (!whenToRecommendSection) return null;
+
+                  return (
+                    <article class="p-5">
+                      {whenToRecommendSection.heading && <h3 class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{stripNumbering(whenToRecommendSection.heading)}</h3>}
+                      {whenToRecommendSection.label && !whenToRecommendSection.heading && <p class="text-[1.5rem] font-semibold tracking-[-0.02em] text-[#2f2924]">{whenToRecommendSection.label}</p>}
+                      {whenToRecommendSection.label && whenToRecommendSection.heading && <p class="mt-3 text-[1.125rem] text-[#4e4741]">{whenToRecommendSection.label}</p>}
+                      {whenToRecommendSection.paragraph && <p class="mt-4 text-[1.125rem] leading-8 text-[#4e4741]">{whenToRecommendSection.paragraph}</p>}
+
+                      {whenToRecommendSection.bullets && (
+                        <ul class="mt-4 list-disc space-y-2 pl-5 text-[1.125rem] leading-8 text-[#4e4741] marker:text-[#605248]">
+                          {whenToRecommendSection.bullets.map((bullet) => <li>{bullet}</li>)}
+                        </ul>
+                      )}
+                    </article>
+                  );
+                })()}
+
+                <article class="rounded-[0.95rem] border border-transparent p-5 text-white md:p-6" style={`background: linear-gradient(135deg, ${lesson.theme.deep} 0%, ${lesson.theme.accent} 100%);`}>
+                    <div class="grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
                       <div class="min-w-0">
                         <p class="inline-flex rounded-full bg-white/18 px-4 py-2 text-sm font-semibold">{lesson.assessment.title}</p>
                         <p class="mt-4 text-[1.38rem] font-semibold leading-[1.45] tracking-[-0.02em]">{lesson.assessment.scenario}</p>
@@ -694,15 +789,10 @@ const lessons = [
                         </div>
 
                         <p class="mt-4 text-[1rem] leading-8 text-white/95">{lesson.assessment.goal}</p>
-                        <p class="mt-4 text-[1rem] leading-8 text-white/95">Click the button below to test your knowledge.</p>
                       </div>
 
-                    <details class="overflow-hidden rounded-[0.9rem] border border-white/18 bg-white/92 text-[#2a231f] shadow-[0_10px_28px_rgba(40,27,20,0.10)] lg:self-start">
-                      <summary class="list-none cursor-pointer px-5 py-4">
-                        <span class="inline-flex rounded-full bg-[#2c241f] px-6 py-3 text-base font-semibold text-white">{lesson.assessment.button}</span>
-                      </summary>
-
-                      <div class="border-t border-[#ece4dd] px-5 py-5">
+                    <div class="overflow-hidden rounded-[0.9rem] border border-white/18 bg-white/92 text-[#2a231f] shadow-[0_10px_28px_rgba(40,27,20,0.10)] lg:self-start">
+                      <div class="px-5 py-5">
                         <div class="quiz" data-quiz>
                           <div class="flex items-center justify-between gap-4">
                             <p class="text-sm uppercase tracking-[0.18em] text-[#8f7968]">Knowledge check</p>
@@ -739,7 +829,7 @@ const lessons = [
                           </div>
                         </div>
                       </div>
-                    </details>
+                    </div>
                   </div>
                 </article>
               </div>
